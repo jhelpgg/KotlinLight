@@ -27,7 +27,6 @@ For now no :
 
 * **data class**
 * **abstract class**
-* **enum class**
 * **sealed class** 
 * **object**
 
@@ -483,6 +482,22 @@ When work if they have at least one no `else` case and the `else` condition is m
         }
     }
 ```
+
+###### Enum
+
+`Enumeration` work only for very simple case. No parameters, just value enumeration :
+
+```kotlin
+enum class Status
+{
+    DISCONNECTED,
+    CONNECTING,
+    CONNECTED,
+    DISCONNECTING
+}
+```
+
+For now don't use `values()`
 
 ###### Other features :
 
