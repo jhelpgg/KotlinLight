@@ -11,6 +11,9 @@ It is more strict.
 The aim is to have a Kotlin version more easy to translate in Swift, with the Kotlin to Swift tool :
 [Kotlin to Swift](https://github.com/jhelpgg/KotlinToSwift)
 
+Some tools to copy/paste can be found at :
+[Kotlin light tools](https://github.com/jhelpgg/KotlinLightTools)
+
 ### How develop in Kotlin light ?
 
 To develop in Kotlin light, you can use any editor/IDE that manage Kotlin language, like IntelliJ, AndroidStudio, ...
@@ -299,8 +302,8 @@ Just have to know, that `@ImportSwift("Dispatch")` is mandatory and don't forget
 Have each time to deal with `fr.jhelp.kotlinLight.DispatchTime` and `fr.jhelp.kotlinLight.DispatchTimeInterval`.
 They also need `@ImportSwift("Dispatch")`.
 
-We will publish soon some tools wrote in Kotlin light can be copy/paste in your project. 
-In waiting them, we give you a file to include to your project, to simplify parallel task usage :
+To simplify task management, can copy the task management from :
+[Kotlin light tools](https://github.com/jhelpgg/KotlinLightTools)
 
 ```kotlin
 import fr.jhelp.kotlinLight.DispatchQueue
