@@ -29,6 +29,7 @@ class CommonMap<K, V> : Iterable<Pair<K, V>>
     operator fun get(key: K): V? =
         this.map[key]
 
+    /*
     // Translation in swift
     // map.clear()
     // =>
@@ -37,6 +38,7 @@ class CommonMap<K, V> : Iterable<Pair<K, V>>
     {
         this.map.clear()
     }
+    */
 
     override fun iterator(): Iterator<Pair<K, V>> =
         this.map.entries.iterator().transform { entry -> Pair(entry.key, entry.value) }
