@@ -42,8 +42,6 @@ Functions can be **open** or final.
 Important : one class/interface per file, no inner/anonymous class
 Global functions or fields can't put in same file as class or interface
 
-No `when` for now
-
 #####  Class
 
 The construction, like that :
@@ -448,6 +446,44 @@ then one wakeup, then last one.
 
 Lambda works fine. Just remember one rule : the usage of `this` is mandatory inside them.
 
+
+###### when
+
+When work if they have at least one no `else` case and the `else` condition is mandatory and must be put as last case
+
+```kotlin
+    when (parameter)
+    {
+        0 -> println("ZERO")
+        5 -> println("FIVE")
+        25 -> println("Twenty five")
+        42 -> println("The answer")
+        73 -> println("Magic Number")
+        666 ->
+        {
+            println("Don't play with it : ")
+            println("   It is the Beast !!!")
+        }
+        else -> println("Nothing to say for $parameter")
+    }
+```
+
+```kotlin
+    when
+    {
+        integer == 5                       -> println("FIVE")
+        integer < 5 && string.isNotEmpty() -> println("$integer => $string")
+        integer > 5 && string.isEmpty()    ->
+        {
+            println("Best car ever : DeLoreen 1985")
+        }
+        else                               ->
+        {
+            println("I have a machine gun now! Ho! Ho! Ho!")
+        }
+    }
+```
+
 ###### Other features :
 
 Elvis `?:` work force not null `!!` also, `is`, `as` also
@@ -465,6 +501,6 @@ Take a look of [Samples](https://github.com/jhelpgg/KotlinLightSamples) to have 
 
 Evolve [Kotlin to Swift](https://github.com/jhelpgg/KotlinToSwift) :
 
-* To manage : `when`, `enum class`, clear the map
+* To manage : `enum class`, clear the map
 * Make a precompiler to detect code out of scope of Kotlin light   
 * Make a trick to manage `data class`, `absract class`, `sealed class`
