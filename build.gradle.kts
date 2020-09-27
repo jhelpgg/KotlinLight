@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "fr.jhelp.kotlinLight"
-version = "0.0.1"
+version = "1.0.0"
 
 repositories {
     mavenLocal()
@@ -32,7 +32,7 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "fr.jhelp.kotlinLight"
             artifactId = "kotlinLight"
-            version = "0.0.1"
+            version = "1.0.0"
 
             from(components["kotlin"])
         }
