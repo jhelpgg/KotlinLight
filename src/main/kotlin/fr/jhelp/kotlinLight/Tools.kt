@@ -11,3 +11,8 @@ fun fatalError(message: String)
 {
     throw RuntimeException("Fatal Error : $message")
 }
+
+fun <T> fatal(message: String): T
+{
+    throw RuntimeException("Fatal Error : $message")
+}
