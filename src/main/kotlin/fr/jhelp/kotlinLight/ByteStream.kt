@@ -4,6 +4,19 @@ class ByteStream(private val byteList: CommonList<Byte>, private val bigEndian: 
 {
     private var index = 0
 
+    fun getPosition() =
+        this.index
+
+    fun setPosition(index: Int)
+    {
+        this.index = index
+    }
+
+    fun rewind()
+    {
+        this.index = 0
+    }
+
     fun remaining(): Int =
         this.byteList.count - this.index
 

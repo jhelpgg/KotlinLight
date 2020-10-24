@@ -1,5 +1,7 @@
 package fr.jhelp.kotlinLight
 
+import kotlin.math.pow
+
 fun timeSince1970InMilliseconds(): Long =
     System.currentTimeMillis()
 
@@ -19,3 +21,9 @@ fun <T> fatal(message: String): T
 {
     throw RuntimeException("Fatal Error : $message")
 }
+
+fun power(value: Double, exponent: Int): Double =
+    value.pow(exponent)
+
+fun power(value: Float, exponent: Int): Float =
+    value.pow(exponent)

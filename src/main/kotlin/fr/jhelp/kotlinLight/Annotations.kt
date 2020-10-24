@@ -11,6 +11,10 @@ package fr.jhelp.kotlinLight
 @Retention(AnnotationRetention.SOURCE)
 annotation class Try
 
+@Target(AnnotationTarget.EXPRESSION, AnnotationTarget.LOCAL_VARIABLE)
+@Retention(AnnotationRetention.SOURCE)
+annotation class Super
+
 // @Override
 // =>
 // override
