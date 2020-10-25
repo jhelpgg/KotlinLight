@@ -29,4 +29,4 @@ annotation class ImportSwift(val name: String)
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)
-annotation class TestCaseClass(val reference: String)
+annotation class TestCaseClass
