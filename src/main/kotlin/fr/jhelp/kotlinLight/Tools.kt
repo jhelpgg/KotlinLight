@@ -27,3 +27,5 @@ fun power(value: Double, exponent: Int): Double =
 
 fun power(value: Float, exponent: Int): Float =
     value.pow(exponent)
+
+fun createDispatchQueue(name: String): DispatchQueue = DispatchQueue(name)
