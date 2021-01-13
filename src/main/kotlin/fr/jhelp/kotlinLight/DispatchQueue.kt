@@ -45,13 +45,17 @@ class DispatchQueue internal constructor(val label: String)
     // DispatchQueue.global().asyncAfter(DispatchTime.now()+DispatchTimeInterval.milliseconds(128), task)
     // =>
     // DispatchQueue.global().asyncAfter(deadline: DispatchTime.now()+DispatchTimeInterval.milliseconds(128), execute : task)
-    fun asyncAfter(deadline: DispatchTime, execute: () -> Unit)
+    fun asyncAfter(deadline: DispatchTime, execute: DispatchWorkItem)
     {
-        this.coroutineScope.launch {
+        execute.job = this.coroutineScope.launch {
             withContext(Dispatchers.Default)
             {
                 delay(deadline.timeMilliseconds - System.currentTimeMillis())
-                execute.suspended()()
+
+                if (!execute.isCancelled)
+                {
+                    execute.block()
+                }
             }
         }
     }
