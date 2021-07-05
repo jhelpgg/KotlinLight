@@ -30,3 +30,16 @@ annotation class ImportSwift(val name: String)
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)
 annotation class TestCaseClass
+
+// @Extension("String")
+//
+// fun String.myMethod() {}
+//
+// =>
+// public extension String
+// {
+//    func myMethod() {}
+// }
+@Target(AnnotationTarget.FUNCTION)
+@Retention(AnnotationRetention.SOURCE)
+annotation class Extension(val className: String)

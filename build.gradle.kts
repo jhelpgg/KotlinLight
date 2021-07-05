@@ -4,10 +4,17 @@ plugins {
     kotlin("jvm") version "1.4.10"
     application
     id("maven-publish")
+    id("maven")
 }
 
-group = "fr.jhelp.kotlinLight"
-version = "1.0.0"
+val VERSION_PREFIX = "1.0.1"
+val VERSION_SUFFIX = ""
+val VERSION = VERSION_PREFIX + VERSION_SUFFIX
+val GROUP_ID = "fr.jhelp.kotlinLight"
+val ARTIFACT_ID = "kotlinLight"
+
+group = GROUP_ID
+version = VERSION
 
 repositories {
     mavenLocal()
@@ -30,11 +37,32 @@ application {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "fr.jhelp.kotlinLight"
-            artifactId = "kotlinLight"
-            version = "1.0.0"
+            groupId = GROUP_ID
+            artifactId = ARTIFACT_ID
+            version = VERSION
 
             from(components["kotlin"])
+        }
+    }
+}
+
+
+tasks.named<Upload>("uploadArchives") {
+    val nexusUrl = "https://nexus.cloud.feetme.fr/repository/android-dev/"
+
+    repositories.withGroovyBuilder {
+        "mavenDeployer" {
+            "repository"("url" to nexusUrl) {
+                "authentication"(
+                    "userName" to System.getenv("NEXUS_USERNAME"),
+                    "password" to System.getenv("NEXUS_PASSWORD")
+                )
+            }
+            "pom" {
+                setProperty("groupId", GROUP_ID)
+                setProperty("artifactId", ARTIFACT_ID)
+                setProperty("version", VERSION)
+            }
         }
     }
 }
