@@ -7,7 +7,7 @@ plugins {
     id("maven")
 }
 
-val VERSION_PREFIX = "1.0.1"
+val VERSION_PREFIX = "1.0.2"
 val VERSION_SUFFIX = ""
 val VERSION = VERSION_PREFIX + VERSION_SUFFIX
 val GROUP_ID = "fr.jhelp.kotlinLight"

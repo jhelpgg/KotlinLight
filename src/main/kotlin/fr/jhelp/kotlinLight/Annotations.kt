@@ -43,3 +43,15 @@ annotation class TestCaseClass
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.SOURCE)
 annotation class Extension(val className: String)
+
+// fun doSomething(@Escaping block : () -> Unit)
+// =>
+// func doSomething(block : @escaping () -> Unit)
+@Target(AnnotationTarget.VALUE_PARAMETER)
+@Retention(AnnotationRetention.SOURCE)
+annotation class Escaping
+
+@Target(AnnotationTarget.EXPRESSION, AnnotationTarget.LOCAL_VARIABLE)
+@Retention(AnnotationRetention.SOURCE)
+annotation class WeakSelf(val returnValue:String)
+
