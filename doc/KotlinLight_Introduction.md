@@ -59,7 +59,7 @@ We provide some helpers code in **Kotlin light** at :
     1) Exception creation
     1) Exception management : @Throws, @Try, guard, try/catch
     1) `open` usage and restriction
-    1) No `abstract` class/method. How simulate the behavior.
+    1) `abstract` is managed by the compiler.
     1) List/Map management (firstOrNull)
     1) Thread and concurrence  management
     1) toString, equals and Comparable 
