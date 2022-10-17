@@ -1,20 +1,13 @@
 package fr.jhelp.kotlinLight
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 // @ImportSwift("Dispatch")
 // =>
 // import Dispatch
 
-class DispatchQueue internal constructor(val label: String)
-{
-    companion object
-    {
+class DispatchQueue internal constructor(val label: String) {
+    companion object {
         private val dispatchQueueGlobal = DispatchQueue("global")
         fun global() = DispatchQueue.dispatchQueueGlobal
     }
@@ -28,8 +21,7 @@ class DispatchQueue internal constructor(val label: String)
     // DispatchQueue.global().async(task)
     // =>
     // DispatchQueue.global().async(execute : task)
-    fun async(execute: () -> Unit)
-    {
+    fun async(execute: () -> Unit) {
         this.coroutineScope.launch {
             withContext(Dispatchers.Default)
             {
@@ -45,15 +37,13 @@ class DispatchQueue internal constructor(val label: String)
     // DispatchQueue.global().asyncAfter(DispatchTime.now()+DispatchTimeInterval.milliseconds(128), task)
     // =>
     // DispatchQueue.global().asyncAfter(deadline: DispatchTime.now()+DispatchTimeInterval.milliseconds(128), execute : task)
-    fun asyncAfter(deadline: DispatchTime, execute: DispatchWorkItem)
-    {
+    fun asyncAfter(deadline: DispatchTime, execute: DispatchWorkItem) {
         execute.job = this.coroutineScope.launch {
+            delay(deadline.timeMilliseconds - System.currentTimeMillis())
+
             withContext(Dispatchers.Default)
             {
-                delay(deadline.timeMilliseconds - System.currentTimeMillis())
-
-                if (!execute.isCancelled)
-                {
+                if (!execute.isCancelled) {
                     execute.block()
                 }
             }
