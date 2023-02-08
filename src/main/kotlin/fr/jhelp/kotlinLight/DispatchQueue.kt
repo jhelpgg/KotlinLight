@@ -14,6 +14,17 @@ class DispatchQueue internal constructor(val label: String) {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
+    /**
+     * Label and qos must be used explicitly
+     *
+     * ie:
+     *
+     * ```kotlin
+     * var queue = DispatchQueue(label="memorypie", qos=DispatchQoS.background)
+     * ```
+     */
+    constructor(label: String, qos: DispatchQoS) : this(label)
+
     // DispatchQueue.global().async { something() }
     // =>
     // DispatchQueue.global().async { something() }
