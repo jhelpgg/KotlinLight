@@ -55,3 +55,13 @@ annotation class Escaping
 @Retention(AnnotationRetention.SOURCE)
 annotation class WeakSelf(val returnValue:String)
 
+//  private @Weak var somethingNullable? : Type = null
+// OR
+//  @Weak private var somethingNullable? : Type = null
+// ->
+// private weak var somethingNullable? : Type = null
+@Target(AnnotationTarget.PROPERTY)
+@Retention(AnnotationRetention.SOURCE)
+annotation class Weak()
+
+
