@@ -26,7 +26,7 @@ fun power(value: Double, exponent: Int): Double =
 fun power(value: Float, exponent: Int): Float =
     value.pow(exponent)
 
-fun createDispatchQueue(name: String): DispatchQueue = DispatchQueue(name)
+fun createDispatchQueue(name: String): DispatchQueue = DispatchQueue(name, DispatchQoS.default)
 
 /** For free memory of "NS" hiding things in IOS like file management ... */
 inline fun <R> autoreleasepool(block: () -> R): R = block()

@@ -1,29 +1,30 @@
 package fr.jhelp.kotlinLight
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-// @ImportSwift("Dispatch")
+// @ImportSwift("Foundation")
 // =>
-// import Dispatch
+// import Foundation
 
-class DispatchQueue internal constructor(val label: String) {
+/**
+ * Label and qos must be used explicitly
+ *
+ * ie:
+ *
+ * ```kotlin
+ * var queue = DispatchQueue(label="memorypie", qos=DispatchQoS.background)
+ * ```
+ */
+class DispatchQueue(val label: String, val qos: DispatchQoS) {
     companion object {
-        private val dispatchQueueGlobal = DispatchQueue("global")
+        private val dispatchQueueGlobal = DispatchQueue("global", DispatchQoS.default)
         fun global() = DispatchQueue.dispatchQueueGlobal
     }
 
-    private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    private val coroutineScope = CoroutineScope(this.qos.dispatcher)
 
-    /**
-     * Label and qos must be used explicitly
-     *
-     * ie:
-     *
-     * ```kotlin
-     * var queue = DispatchQueue(label="memorypie", qos=DispatchQoS.background)
-     * ```
-     */
-    constructor(label: String, qos: DispatchQoS) : this(label)
 
     // DispatchQueue.global().async { something() }
     // =>
@@ -34,10 +35,7 @@ class DispatchQueue internal constructor(val label: String) {
     // DispatchQueue.global().async(execute : task)
     fun async(execute: () -> Unit) {
         this.coroutineScope.launch {
-            withContext(Dispatchers.Default)
-            {
-                execute.suspended()()
-            }
+            execute()
         }
     }
 
@@ -52,11 +50,8 @@ class DispatchQueue internal constructor(val label: String) {
         execute.job = this.coroutineScope.launch {
             delay(deadline.timeMilliseconds - System.currentTimeMillis())
 
-            withContext(Dispatchers.Default)
-            {
-                if (!execute.isCancelled) {
-                    execute.block()
-                }
+            if (!execute.isCancelled) {
+                execute.block()
             }
         }
     }

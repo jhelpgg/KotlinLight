@@ -6,7 +6,7 @@ plugins {
     id("maven-publish")
 }
 
-val VERSION_PREFIX = "1.0.7"
+val VERSION_PREFIX = "1.0.8"
 val VERSION_SUFFIX = ""
 val VERSION = VERSION_PREFIX + VERSION_SUFFIX
 val GROUP_ID = "fr.jhelp.kotlinLight"
@@ -22,7 +22,15 @@ repositories {
 
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5")
-    testImplementation(kotlin("test-junit5"))
+    this.testImplementation(this.platform("org.junit:junit-bom:5.7.0"))
+    this.testImplementation("org.junit.jupiter:junit-jupiter")
+}
+
+tasks.test {
+    this.useJUnitPlatform()
+    this.testLogging {
+        this.events("passed", "skipped", "failed")
+    }
 }
 
 tasks.withType<KotlinCompile>() {
