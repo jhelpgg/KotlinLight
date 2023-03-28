@@ -6,9 +6,9 @@ import java.lang.Thread
 
 class DispatchQueueTests {
     @Test
-    fun defaultTest() {
+    fun concurrentText() {
         TaskCounter.resetCounters()
-        val dispatchQueue = DispatchQueue(label = "label", qos = DispatchQoS.default)
+        val dispatchQueue = DispatchQueue(label = "label", qos = DispatchQoS.default, attributes = DispatchQueue.Attributes.concurrent)
 
         for(time in 0 until 16) {
             dispatchQueue.async { TaskCounter(128L).play() }
@@ -22,7 +22,7 @@ class DispatchQueueTests {
     }
 
     @Test
-    fun backgroundTest() {
+    fun notConcurrentTest() {
         TaskCounter.resetCounters()
         val dispatchQueue = DispatchQueue(label = "label", qos = DispatchQoS.background)
 

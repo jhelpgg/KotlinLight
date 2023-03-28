@@ -1,8 +1,6 @@
 package fr.jhelp.kotlinLight
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 // @ImportSwift("Foundation")
 // =>
@@ -15,22 +13,29 @@ import kotlinx.coroutines.launch
  *
  * ```kotlin
  * var queue = DispatchQueue(label="memorypie", qos=DispatchQoS.background)
+ * var queue = DispatchQueue(label="memorypie", qos=DispatchQoS.background, attributes = DispatchQueue.Attributes.concurrent)
  * ```
  */
-class DispatchQueue(val label: String, val qos: DispatchQoS) {
+class DispatchQueue(label: String, qos: DispatchQoS, attributes: DispatchQueue.Attributes = DispatchQueue.Attributes()) {
     companion object {
-        private val dispatchQueueGlobal = DispatchQueue("global", DispatchQoS.default)
+        private val dispatchQueueGlobal = DispatchQueue("global", DispatchQoS.default, DispatchQueue.Attributes.concurrent)
         fun global() = DispatchQueue.dispatchQueueGlobal
     }
 
-    private val coroutineScope = CoroutineScope(this.qos.dispatcher)
+    class Attributes(val dispatcher: CoroutineDispatcher = QueueDispatcher) {
+        companion object {
+            // Indicates a concurrent queue
+            val concurrent = Attributes(Dispatchers.Default)
+        }
+    }
 
+    private val coroutineScope = CoroutineScope(attributes.dispatcher)
 
     // DispatchQueue.global().async { something() }
     // =>
     // DispatchQueue.global().async { something() }
     // ---
-    // DispatchQueue.global().async(task)
+    // DispatchQueue.global().async(execute = task)
     // =>
     // DispatchQueue.global().async(execute : task)
     fun async(execute: () -> Unit) {
@@ -39,11 +44,11 @@ class DispatchQueue(val label: String, val qos: DispatchQoS) {
         }
     }
 
-    // DispatchQueue.global().asyncAfter(DispatchTime.now()+DispatchTimeInterval.milliseconds(128)) { something() }
+    // DispatchQueue.global().asyncAfter(deadline = DispatchTime.now()+DispatchTimeInterval.milliseconds(128)) { something() }
     // =>
     // DispatchQueue.global().asyncAfter(deadline: DispatchTime.now()+DispatchTimeInterval.milliseconds(128)) { something() }
     // ---
-    // DispatchQueue.global().asyncAfter(DispatchTime.now()+DispatchTimeInterval.milliseconds(128), task)
+    // DispatchQueue.global().asyncAfter(deadline = DispatchTime.now()+DispatchTimeInterval.milliseconds(128), execute = task)
     // =>
     // DispatchQueue.global().asyncAfter(deadline: DispatchTime.now()+DispatchTimeInterval.milliseconds(128), execute : task)
     fun asyncAfter(deadline: DispatchTime, execute: DispatchWorkItem) {
@@ -56,6 +61,3 @@ class DispatchQueue(val label: String, val qos: DispatchQoS) {
         }
     }
 }
-
-
-internal fun (() -> Unit).suspended(): suspend () -> Unit = { this() }
