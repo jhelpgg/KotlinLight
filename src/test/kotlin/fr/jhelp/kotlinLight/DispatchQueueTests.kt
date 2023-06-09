@@ -6,19 +6,19 @@ import java.lang.Thread
 
 class DispatchQueueTests {
     @Test
-    fun concurrentText() {
+    fun concurrentTest() {
         TaskCounter.resetCounters()
         val dispatchQueue = DispatchQueue(label = "label", qos = DispatchQoS.default, attributes = DispatchQueue.Attributes.concurrent)
 
-        for(time in 0 until 16) {
+        for (time in 0 until 32) {
             dispatchQueue.async { TaskCounter(128L).play() }
         }
 
-        Thread.sleep(2048L)
+        Thread.sleep(4096L)
 
         Assertions.assertEquals(0, TaskCounter.active)
-        Assertions.assertEquals(16, TaskCounter.total)
-        Assertions.assertEquals(16, TaskCounter.inSameTime)
+        Assertions.assertEquals(32, TaskCounter.total)
+        Assertions.assertEquals(20, TaskCounter.inSameTime)
     }
 
     @Test
@@ -26,14 +26,14 @@ class DispatchQueueTests {
         TaskCounter.resetCounters()
         val dispatchQueue = DispatchQueue(label = "label", qos = DispatchQoS.background)
 
-        for(time in 0 until 16) {
+        for (time in 0 until 32) {
             dispatchQueue.async { TaskCounter(128L).play() }
         }
 
-        Thread.sleep(4096L)
+        Thread.sleep(8192L)
 
         Assertions.assertEquals(0, TaskCounter.active)
-        Assertions.assertEquals(16, TaskCounter.total)
+        Assertions.assertEquals(32, TaskCounter.total)
         Assertions.assertEquals(1, TaskCounter.inSameTime)
     }
 }
