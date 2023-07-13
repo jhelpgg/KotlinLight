@@ -1,12 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.4.10"
+    kotlin("jvm") version "1.8.0"
     application
     id("maven-publish")
 }
 
-val VERSION_PREFIX = "1.0.11"
+val VERSION_PREFIX = "1.0.13"
 val VERSION_SUFFIX = ""
 val VERSION = VERSION_PREFIX + VERSION_SUFFIX
 val GROUP_ID = "fr.jhelp.kotlinLight"

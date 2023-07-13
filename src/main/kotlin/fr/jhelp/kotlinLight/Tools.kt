@@ -30,3 +30,19 @@ fun createDispatchQueue(name: String): DispatchQueue = DispatchQueue(name, Dispa
 
 /** For free memory of "NS" hiding things in IOS like file management ... */
 inline fun <R> autoreleasepool(block: () -> R): R = block()
+
+fun isDictionaryStringAny(something: Any?): Boolean {
+    if (something == null) {
+        return false
+    }
+
+    return something is CommonMap<*, *>
+}
+
+fun isListAny(something: Any?): Boolean {
+    if (something == null) {
+        return false
+    }
+
+    return something is CommonList<*>
+}

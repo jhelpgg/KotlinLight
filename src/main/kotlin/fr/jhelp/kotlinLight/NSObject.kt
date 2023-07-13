@@ -1,4 +1,4 @@
 package fr.jhelp.kotlinLight
 
-class NSObject {
+open class NSObject {
 }
