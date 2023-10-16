@@ -6,7 +6,7 @@ plugins {
     id("maven-publish")
 }
 
-val VERSION_PREFIX = "1.0.13"
+val VERSION_PREFIX = "1.0.14"
 val VERSION_SUFFIX = ""
 val VERSION = VERSION_PREFIX + VERSION_SUFFIX
 val GROUP_ID = "fr.jhelp.kotlinLight"
