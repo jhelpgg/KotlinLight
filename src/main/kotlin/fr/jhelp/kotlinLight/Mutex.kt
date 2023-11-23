@@ -19,4 +19,18 @@ class Mutex
             this.semaphore.release()
         }
     }
+
+    fun safeExecuteMayThrows(task: () -> Unit)
+    {
+        this.semaphore.acquire()
+
+        try
+        {
+            task()
+        }
+        finally
+        {
+            this.semaphore.release()
+        }
+    }
 }
