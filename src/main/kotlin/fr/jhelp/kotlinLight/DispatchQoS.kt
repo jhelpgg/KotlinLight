@@ -1,6 +1,8 @@
 package fr.jhelp.kotlinLight
 
-enum class DispatchQoS {
+enum class DispatchQoS() {
+    default,
+
     /**
      * The quality-of-service class for user-interactive tasks, such as animations, event handling, or updates to your app's user interface.
      */

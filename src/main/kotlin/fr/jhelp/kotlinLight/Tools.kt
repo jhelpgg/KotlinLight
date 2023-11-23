@@ -26,7 +26,23 @@ fun power(value: Double, exponent: Int): Double =
 fun power(value: Float, exponent: Int): Float =
     value.pow(exponent)
 
-fun createDispatchQueue(name: String): DispatchQueue = DispatchQueue(name)
+fun createDispatchQueue(name: String): DispatchQueue = DispatchQueue(name, DispatchQoS.default)
 
 /** For free memory of "NS" hiding things in IOS like file management ... */
 inline fun <R> autoreleasepool(block: () -> R): R = block()
+
+fun isDictionaryStringAny(something: Any?): Boolean {
+    if (something == null) {
+        return false
+    }
+
+    return something is CommonMap<*, *>
+}
+
+fun isListAny(something: Any?): Boolean {
+    if (something == null) {
+        return false
+    }
+
+    return something is CommonList<*>
+}

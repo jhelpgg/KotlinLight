@@ -25,6 +25,7 @@ annotation class Override
 // @ImportSwift("Library")
 // =>
 // import Library
+@Repeatable
 annotation class ImportSwift(val name: String)
 
 @Target(AnnotationTarget.CLASS)
